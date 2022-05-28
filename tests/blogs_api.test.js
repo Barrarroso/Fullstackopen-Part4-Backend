@@ -63,11 +63,6 @@ describe('adding a blog post', () => {
         const titles = blogsAtEnd.map(blog => blog.title)
         expect(titles).toContain(newBlog.title)
     })
-    /*
-    
-Write a test that verifies that if the likes property is missing from the request, it will default to the value 0. Do not test the other properties of the created blogs yet.
-
-Make the required changes to the code so that it passes the test.*/
 
     test('gives 0 likes if the likes property is missing', async () => {
         const newBlog = {
@@ -93,6 +88,44 @@ Make the required changes to the code so that it passes the test.*/
     })
 })
 
+describe('remove a blog post', () => {
+    test('removing a blog post reduces the length of blogs by 1', async () => {
+        //delete the first blog post
+        const blogs = await helper.blogsInDb()
+        const prevLength = blogs.length
+
+        await api.delete(`/api/blogs/${blogs[0].id}`)
+        .expect(204)
+
+        const blogsAtDelete = await helper.blogsInDb()
+
+        expect(blogsAtDelete).toHaveLength(prevLength-1)
+        
+    })
+})
+
+describe('update a blog post', () => {
+    test('changing likes of a blog', async () => {
+        //delete the first blog post
+        const blogs = await helper.blogsInDb()
+
+        updatedBlog = {
+            title: 'BlogTitle0',
+            author: 'Pete',
+            url: 'http://sample.com',
+            likes: 99
+        }
+
+        await api.put(`/api/blogs/${blogs[0].id}`).send(updatedBlog)
+        .expect(204)
+
+        const blogsUpdated = await helper.blogsInDb()
+
+        blogsLikes = blogsUpdated.map(blog => blog.likes)
+
+        expect(blogsLikes).toContain(99)
+    })
+})
 
 afterAll(() => {
   mongoose.connection.close()
