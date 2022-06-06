@@ -12,8 +12,12 @@ const tokenExtractor = (request, response, next) => {
 }
 
 const userExtractor = (request, response, next) => {
-  const decodedToken = jwt.verify(request.token, config.SECRET)
-  request.userid = decodedToken.id
+  if (request.token) {
+    const decodedToken = jwt.verify(request.token, config.SECRET)
+    request.userid = decodedToken.id
+  }else {
+    request.userid = ""
+  }
   next()
 }
 
