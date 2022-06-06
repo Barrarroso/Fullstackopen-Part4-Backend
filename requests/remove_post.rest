@@ -1,10 +1,7 @@
-POST http://localhost:3003/api/blogs HTTP/1.1
+DELETE http://localhost:3003/api/blogs/629d47e9aa351eca3e7d1f61 HTTP/1.1
 content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBldGUwMTMiLCJpZCI6IjYyOTc3ODNkMjI1YzRkMDBlYjU3NmQyNiIsImlhdCI6MTY1NDQ3MjQyNSwiZXhwIjoxNjU0NTA4NDI1fQ.SncGHEFm_RnSJeaEqNe1G80vpctWjUFbYBrG61TQsQQ
 
 {
-    "title": "Post number 4",
-    "author": "David",
-    "url": "https://myblog.com",
-    "likes": 20
+
 }
